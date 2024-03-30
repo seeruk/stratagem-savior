@@ -1,67 +1,40 @@
+import React, { useCallback, useEffect, useState } from "react"
 import type { MetaFunction } from "@remix-run/cloudflare"
-import { useCallback, useEffect } from "react"
+
+import { ArrowInput } from "~/components/ArrowInput"
+import { Direction } from "~/types"
+import { randomIntBetween, randomSequence } from "~/utils"
 
 export const meta: MetaFunction = () => {
   return [
     { title: "Subterfuge Savior" },
     {
       name: "description",
-      content: "A shameless Stratagem Hero clone, with some extra fun modes!",
+      content: "A shameless Stratagem Hero clone, with some fun extra modes!",
     },
   ]
 }
 
-// TODO: Move me
-const keyToDirection = (key: string) => {
-  switch (key) {
-    case "ArrowUp":
-    case "w":
-      return "up"
-    case "ArrowDown":
-    case "s":
-      return "down"
-    case "ArrowLeft":
-    case "a":
-      return "left"
-    case "ArrowRight":
-    case "d":
-      return "right"
-    default:
-      return ""
-  }
-}
-
-// TODO: Not hard-coded
-const sequence = ["up", "down", "down", "up"]
-
-const directionSymbols = {
-  up: "⬆",
-  down: "⬇",
-  left: "⬅",
-  right: "⮕",
+const Heading = ({ children }: React.PropsWithChildren) => {
+  return <h1 className="text-4xl font-bold text-yellow-400 mb-8">{children}</h1>
 }
 
 export default function Index() {
-  const onKeyDown = useCallback((evt: KeyboardEvent) => {
-    console.log(keyToDirection(evt.key))
-  }, [])
+  const [sequence, setSequence] = useState([] as Direction[])
+
+  const onSuccess = useCallback(() => {
+    setSequence(randomSequence(randomIntBetween(3, 10)))
+  }, [setSequence])
 
   useEffect(() => {
-    document.addEventListener("keydown", onKeyDown, false)
-    return () => document.removeEventListener("keydown", onKeyDown, false)
-  }, [onKeyDown])
+    setSequence(randomSequence(randomIntBetween(3, 10)))
+  }, [])
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <div
-        style={{
-          color: "white",
-          background: "black",
-          fontWeight: "bold",
-          fontSize: "64px",
-        }}
-      >
-        &#x2B05; &#x2B95; &#x2B06; &#x2B07;
+    <div className="flex h-screen w-screen justify-center items-center">
+      <div className="flex flex-col items-center">
+        <Heading>Subterfuge Savior</Heading>
+        <ArrowInput sequence={sequence} onSuccess={onSuccess} />
       </div>
     </div>
   )

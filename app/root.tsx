@@ -1,4 +1,17 @@
+import { LinksFunction } from "@remix-run/cloudflare"
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react"
+
+import styles from "~/app.css?url"
+
+export const links: LinksFunction = () => [
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap",
+  },
+  { rel: "stylesheet", href: styles },
+]
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +22,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-screen bg-black text-white">
         {children}
         <ScrollRestoration />
         <Scripts />
