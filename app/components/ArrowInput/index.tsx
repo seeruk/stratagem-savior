@@ -4,13 +4,6 @@ import { twMerge } from "tailwind-merge"
 import { Direction } from "~/types"
 import { arraysEqual, keyToDirection, sleep } from "~/utils"
 
-const directionSymbols: { [key in Direction]: string } = {
-  up: "⬆",
-  down: "⬇",
-  left: "⬅",
-  right: "⮕",
-}
-
 export type ArrowInputProps = {
   sequence: Direction[]
   onSuccess?: () => void
@@ -84,11 +77,11 @@ export function ArrowInput({ sequence, onSuccess }: ArrowInputProps) {
     <div>
       <div className={twMerge("relative text-6xl text-gray-400", failed && "animate-shake")}>
         {sequence.map((direction, i) => (
-          <span key={i} className={`icon-arrow-${direction}`} />
+          <span key={i} className={`inline-block icon-arrow-${direction}`} />
         ))}
         <div className={twMerge("absolute top-0 left-0 text-white", failed && "text-red-600")}>
           {gameState.map((direction, i) => (
-            <span key={i} className={`icon-arrow-${direction}`} />
+            <span key={i} className={`inline-block icon-arrow-${direction}`} />
           ))}
         </div>
       </div>
