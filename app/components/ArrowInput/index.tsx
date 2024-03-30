@@ -83,9 +83,13 @@ export function ArrowInput({ sequence, onSuccess }: ArrowInputProps) {
   return (
     <div>
       <div className={twMerge("relative text-6xl text-gray-400", failed && "animate-shake")}>
-        {sequence.map((direction) => directionSymbols[direction])}
+        {sequence.map((direction, i) => (
+          <span key={i} className={`icon-arrow-${direction}`} />
+        ))}
         <div className={twMerge("absolute top-0 left-0 text-white", failed && "text-red-600")}>
-          {gameState.map((direction) => directionSymbols[direction])}
+          {gameState.map((direction, i) => (
+            <span key={i} className={`icon-arrow-${direction}`} />
+          ))}
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import { LinksFunction } from "@remix-run/cloudflare"
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react"
 
-import styles from "~/app.css?url"
+import appStyles from "~/styles/app.css?url"
+import iconsStyles from "~/styles/icons.css?url"
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -10,7 +11,8 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap",
   },
-  { rel: "stylesheet", href: styles },
+  { rel: "stylesheet", href: appStyles },
+  { rel: "stylesheet", href: iconsStyles },
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {
