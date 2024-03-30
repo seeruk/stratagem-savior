@@ -1,9 +1,9 @@
+.idea
+.wrangler
 node_modules
 
 /.cache
 /build
+
 .env
-
-.wrangler
-
 .dev.vars
