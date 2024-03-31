@@ -27,6 +27,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="min-h-screen bg-black text-white">
         {children}
+        <span className="icon-arrow-down absolute top-0 opacity-0"></span>
         <ScrollRestoration />
         <Scripts />
       </body>
