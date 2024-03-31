@@ -7,9 +7,10 @@ import { arraysEqual, keyToDirection, sleep } from "~/utils"
 export type ArrowInputProps = {
   sequence: Direction[]
   onSuccess?: () => void
+  onFailure?: () => void
 }
 
-export function ArrowInput({ sequence, onSuccess }: ArrowInputProps) {
+export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) {
   const [gameState, setGameState] = useState([] as Direction[])
   const [shouldWait, setShouldWait] = useState(false)
   const [failed, setFailed] = useState(false)
@@ -53,11 +54,12 @@ export function ArrowInput({ sequence, onSuccess }: ArrowInputProps) {
     if (!failed) {
       return
     }
+    onFailure && onFailure()
     setShouldWait(true)
     sleep(500).then(() => {
       resetState()
     })
-  }, [failed, resetState, setShouldWait])
+  }, [failed, resetState, onFailure, setShouldWait])
 
   // Register keydown event listener
   useEffect(() => {
