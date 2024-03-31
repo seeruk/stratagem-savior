@@ -5,6 +5,8 @@ import { twMerge } from "tailwind-merge"
 export const arraysEqual = <T,>(a: T[], b: T[]) =>
   a.length === b.length && a.every((element, index) => element === b[index])
 
+export const asPercentage = (value: number, total: number) => (value / total) * 100
+
 export const keyToDirection = (key: string): Maybe<Direction> => {
   switch (key) {
     case "ArrowUp":
@@ -23,8 +25,6 @@ export const keyToDirection = (key: string): Maybe<Direction> => {
       return null
   }
 }
-
-export const min = (a: number, b: number) => (a < b ? a : b)
 
 export const randomIntBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min)
