@@ -3,7 +3,6 @@ import { useCallback, useEffect } from "react"
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { keyToDirection } from "~/utils"
-import { ProgressBar } from "~/components/ProgressBar"
 
 export type MenuProps = {
   onStart: () => void

@@ -11,9 +11,9 @@ export function GameOver({ score }: GameOverProps) {
       <Heading>Game Over</Heading>
 
       <Heading className="mb-0" level={3} size="xs">
-        High Scores
+        High Score
       </Heading>
-      <div className="mb-8">TODO</div>
+      <div className="mb-8 text-xl font-bold">TODO</div>
 
       <Heading className="mb-0" level={3} size="xs">
         Your Final Score
