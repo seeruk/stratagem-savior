@@ -76,5 +76,5 @@ export function Game({ onReset }: GameProps) {
 }
 
 const generateRoundSequences = (round: number) => {
-  return Array.from({ length: 5 + round }, () => randomSequence(randomIntBetween(3, 3)))
+  return Array.from({ length: 5 + round }, () => randomSequence(randomIntBetween(3, 9)))
 }
