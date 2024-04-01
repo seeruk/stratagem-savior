@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { GameOver } from "~/scenes/Game/gameover"
-import { stratagems } from "~/stratagems"
+import { Stratagem, stratagems } from "~/stratagems"
 
 enum Phase {
   RoundIntro,
@@ -20,6 +20,7 @@ export function Game({ onReset }: GameProps) {
   const [round, setRound] = useState(1)
   const [score, setScore] = useState(0)
   const [phase, setPhase] = useState(Phase.RoundIntro)
+  const [stratagems, setStratagems] = useState<Stratagem[]>([])
 
   const onInputSuccess = () => {
     setScore((score) => score + 1)
@@ -36,6 +37,7 @@ export function Game({ onReset }: GameProps) {
 
   useEffect(() => {
     if (phase === Phase.RoundIntro) {
+      setStratagems(generateRoundStratagems(round))
       setTimeout(() => {
         setPhase(Phase.Playing)
       }, 2000)
@@ -63,7 +65,7 @@ export function Game({ onReset }: GameProps) {
           round={round}
           roundLength={10000}
           score={score}
-          stratagems={generateRoundStratagems(round)}
+          stratagems={stratagems}
           onInputSuccess={onInputSuccess}
           onInputFailure={() => {}}
           onRoundSuccess={onRoundSuccess}

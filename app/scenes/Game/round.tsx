@@ -4,6 +4,7 @@ import { ArrowInput } from "~/components/ArrowInput"
 import { ProgressBar } from "~/components/ProgressBar"
 import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"
+import { twMerge } from "tailwind-merge"
 
 export type RoundProps = {
   round: number
@@ -56,21 +57,44 @@ export function Round({
     return () => clearInterval(intervalId)
   }, [end, roundLength, onRoundFailure])
 
-  return (
-    <div className="flex flex-col items-center max-w-[600px] w-full">
-      <div className="mb-4 font-bold text-xl">{stratagems[sequenceIdx].name}</div>
-
-      <ArrowInput
-        sequence={stratagems[sequenceIdx].sequence}
-        onSuccess={onInputSuccessCb}
-        onFailure={onInputFailure}
+  const icons = stratagems.slice(sequenceIdx, sequenceIdx + 5).map((stratagem, i) => {
+    const Icon = stratagem.icon
+    return (
+      <Icon
+        key={i}
+        className={twMerge("w-[100px] h-[100px] p-3", i === 0 && "border-yellow-300 border-[2px]")}
       />
+    )
+  })
 
-      <div className="mt-4">
-        Round: {round}, Score: {score}
+  return (
+    <div className="flex">
+      <div className="w-[100px] font-bold">
+        <p>Round</p>
+        <p className="text-yellow-300 text-3xl">{round}</p>
       </div>
 
-      <ProgressBar className="mt-4" progress={asPercentage(end - now, roundLength)} />
+      <div className="flex flex-col items-center w-[500px]">
+        <div className="flex mb-1 w-full">{icons}</div>
+
+        <div className="mb-4 h-6 w-full bg-yellow-300 font-bold leading-6 text-black text-center text-xl uppercase">
+          {stratagems[sequenceIdx].name}
+        </div>
+
+        <ArrowInput
+          sequence={stratagems[sequenceIdx].sequence}
+          onSuccess={onInputSuccessCb}
+          onFailure={onInputFailure}
+        />
+
+        <ProgressBar className="mt-4" progress={asPercentage(end - now, roundLength)} />
+      </div>
+
+      <div className="w-[100px] font-bold text-right">
+        <p>&nbsp;</p>
+        <p className="text-yellow-300 text-3xl">{score}</p>
+        <p>Score</p>
+      </div>
     </div>
   )
 }
