@@ -9,7 +9,7 @@ export type GameOverProps = {
 }
 
 export function GameOver({ score }: GameOverProps) {
-  const [highScore, setHighScore] = useLocalStorage("ssgHighScore", 0)
+  const [highScore, setHighScore] = useLocalStorage("ssgHighScoreV1", 0)
 
   useEffect(() => {
     if (score > highScore) {

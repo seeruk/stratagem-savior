@@ -13,7 +13,7 @@ export type RoundProps = {
   stratagems: Stratagem[]
   onInputSuccess: () => void
   onInputFailure: () => void
-  onRoundSuccess: () => void
+  onRoundSuccess: (timer: number) => void
   onRoundFailure: () => void
 }
 
@@ -31,17 +31,21 @@ export function Round({
   const [end, setEnd] = useState(Date.now() + roundLength)
   const [sequenceIdx, setSequenceIdx] = useState(0)
 
+  const timer = end - now
+  const danger = timer < 2000
+
   // This callback needs to remain quite stable, otherwise on each change
   // it'll get called multiple times by the ArrowInput component.
   const onInputSuccessCb = useCallback(() => {
+    const newEnd = end + 1000
+    onInputSuccess()
     if (sequenceIdx === stratagems.length - 1) {
-      onRoundSuccess()
+      onRoundSuccess(newEnd - Date.now())
       return
     }
     setSequenceIdx((idx) => idx + 1)
-    setEnd((prev) => prev + 1000)
-    onInputSuccess()
-  }, [onInputSuccess, onRoundSuccess, sequenceIdx, stratagems.length])
+    setEnd(newEnd)
+  }, [end, onInputSuccess, onRoundSuccess, sequenceIdx, stratagems.length])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -56,9 +60,6 @@ export function Round({
 
     return () => clearInterval(intervalId)
   }, [end, roundLength, onRoundFailure])
-
-  const timer = end - now
-  const danger = timer < 2000
 
   const icons = stratagems.slice(sequenceIdx, sequenceIdx + 5).map((stratagem, i) => {
     const Icon = stratagem.icon

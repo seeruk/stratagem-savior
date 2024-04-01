@@ -1,13 +1,22 @@
-import { randomIntBetween } from "~/utils"
+import { asPercentage, randomIntBetween } from "~/utils"
 import { Round } from "~/scenes/Game/round"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
-import { GameOver } from "~/scenes/Game/gameover"
+import { GameOver } from "~/scenes/Game/game-over"
 import { Stratagem, stratagems } from "~/stratagems"
+import { RoundEnd } from "~/scenes/Game/round-end"
+
+// TODO: Configurable and passed in!
+const scoreInitialRound = 75
+const scoreInputSuccess = 25
+const scorePerfectRound = 100
+const scoreRoundIncrement = 25
+const roundLength = 10000
 
 enum Phase {
   RoundIntro,
+  RoundEnd,
   Playing,
   GameOver,
 }
@@ -17,38 +26,68 @@ export type GameProps = {
 }
 
 export function Game({ onReset }: GameProps) {
+  const [perfectRound, setPerfectRound] = useState(false)
+  const [roundBonus, setRoundBonus] = useState(0)
+  const [timeBonus, setTimeBonus] = useState(0)
+  const [perfectBonus, setPerfectBonus] = useState(0)
   const [round, setRound] = useState(1)
   const [score, setScore] = useState(0)
   const [phase, setPhase] = useState(Phase.RoundIntro)
   const [stratagems, setStratagems] = useState<Stratagem[]>([])
 
   const onInputSuccess = () => {
-    setScore((score) => score + 1)
+    setScore((score) => score + scoreInputSuccess)
   }
 
-  const onRoundSuccess = () => {
-    setPhase(Phase.RoundIntro)
-    setRound((round) => round + 1)
+  const onInputFailure = () => {
+    setPerfectRound(false)
   }
+
+  const onRoundSuccess = useCallback(
+    (timer: number) => {
+      const roundBonus = scoreInitialRound + scoreRoundIncrement * (round - 1)
+      const timeBonus = Math.floor(asPercentage(timer, roundLength))
+      const perfectBonus = perfectRound ? scorePerfectRound : 0
+      setRoundBonus(roundBonus)
+      setTimeBonus(timeBonus)
+      setPerfectBonus(perfectBonus)
+      setScore((score) => score + roundBonus + timeBonus + perfectBonus)
+      setPhase(Phase.RoundEnd)
+      setRound((round) => round + 1)
+    },
+    [perfectRound, round],
+  )
 
   const onRoundFailure = () => {
     setPhase(Phase.GameOver)
   }
 
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>
+
     if (phase === Phase.RoundIntro) {
-      setStratagems(generateRoundStratagems(round))
-      setTimeout(() => {
+      // We reset the round here
+      timeoutId = setTimeout(() => {
+        setPerfectRound(true)
+        setStratagems(generateRoundStratagems(round))
         setPhase(Phase.Playing)
       }, 2000)
     }
 
+    if (phase === Phase.RoundEnd) {
+      timeoutId = setTimeout(() => {
+        setPhase(Phase.RoundIntro)
+      }, 3000)
+    }
+
     if (phase === Phase.GameOver) {
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         onReset()
       }, 5000)
     }
-  }, [phase, onReset, round])
+
+    return () => clearTimeout(timeoutId)
+  }, [phase, onReset, round, perfectRound])
 
   return (
     <>
@@ -63,13 +102,22 @@ export function Game({ onReset }: GameProps) {
       {phase === Phase.Playing && (
         <Round
           round={round}
-          roundLength={10000}
+          roundLength={roundLength}
           score={score}
           stratagems={stratagems}
           onInputSuccess={onInputSuccess}
-          onInputFailure={() => {}}
+          onInputFailure={onInputFailure}
           onRoundSuccess={onRoundSuccess}
           onRoundFailure={onRoundFailure}
+        />
+      )}
+
+      {phase === Phase.RoundEnd && (
+        <RoundEnd
+          score={score}
+          roundBonus={roundBonus}
+          timeBonus={timeBonus}
+          perfectBonus={perfectBonus}
         />
       )}
 
