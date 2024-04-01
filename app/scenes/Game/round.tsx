@@ -66,8 +66,8 @@ export function Round({
       <Icon
         key={i}
         className={twMerge(
-          "w-[100px] h-[100px] p-3",
-          i === 0 && "border-yellow-300 border-[2px]",
+          "w-[95px] h-[95px] p-4",
+          i === 0 && "border-yellow-300 border-[2px] w-[120px] h-[120px] p-2",
           danger && "border-red-500",
         )}
       />
@@ -82,11 +82,11 @@ export function Round({
       </div>
 
       <div className="flex flex-col items-center w-[500px]">
-        <div className="flex mb-1 w-full">{icons}</div>
+        <div className="flex mb-1 w-full items-center">{icons}</div>
 
         <div
           className={twMerge(
-            "mb-4 h-7 w-full bg-yellow-300 font-bold text-black text-center text-xl uppercase",
+            "mb-6 h-7 w-full bg-yellow-300 font-bold text-black text-center text-xl uppercase",
             danger && "bg-red-500",
           )}
         >
@@ -100,7 +100,7 @@ export function Round({
         />
 
         <ProgressBar
-          className="mt-4"
+          className="mt-6"
           danger={danger}
           progress={asPercentage(end - now, roundLength)}
         />

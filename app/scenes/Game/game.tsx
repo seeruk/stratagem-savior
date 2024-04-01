@@ -48,7 +48,7 @@ export function Game({ onReset }: GameProps) {
         onReset()
       }, 5000)
     }
-  }, [phase, onReset])
+  }, [phase, onReset, round])
 
   return (
     <>
