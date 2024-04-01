@@ -1,9 +1,10 @@
-import { randomIntBetween, randomSequence } from "~/utils"
+import { randomIntBetween } from "~/utils"
 import { Round } from "~/scenes/Game/round"
 import { useEffect, useState } from "react"
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { GameOver } from "~/scenes/Game/gameover"
+import { stratagems } from "~/stratagems"
 
 enum Phase {
   RoundIntro,
@@ -62,7 +63,7 @@ export function Game({ onReset }: GameProps) {
           round={round}
           roundLength={10000}
           score={score}
-          sequences={generateRoundSequences(round)}
+          stratagems={generateRoundStratagems(round)}
           onInputSuccess={onInputSuccess}
           onInputFailure={() => {}}
           onRoundSuccess={onRoundSuccess}
@@ -75,6 +76,9 @@ export function Game({ onReset }: GameProps) {
   )
 }
 
-const generateRoundSequences = (round: number) => {
-  return Array.from({ length: 5 + round }, () => randomSequence(randomIntBetween(3, 9)))
+const generateRoundStratagems = (round: number) => {
+  return Array.from(
+    { length: 5 + round },
+    () => stratagems[randomIntBetween(0, stratagems.length - 1)],
+  )
 }
