@@ -57,12 +57,19 @@ export function Round({
     return () => clearInterval(intervalId)
   }, [end, roundLength, onRoundFailure])
 
+  const timer = end - now
+  const danger = timer < 2000
+
   const icons = stratagems.slice(sequenceIdx, sequenceIdx + 5).map((stratagem, i) => {
     const Icon = stratagem.icon
     return (
       <Icon
         key={i}
-        className={twMerge("w-[100px] h-[100px] p-3", i === 0 && "border-yellow-300 border-[2px]")}
+        className={twMerge(
+          "w-[100px] h-[100px] p-3",
+          i === 0 && "border-yellow-300 border-[2px]",
+          danger && "border-red-500",
+        )}
       />
     )
   })
@@ -71,13 +78,18 @@ export function Round({
     <div className="flex">
       <div className="w-[100px] font-bold">
         <p>Round</p>
-        <p className="text-yellow-300 text-3xl">{round}</p>
+        <p className={twMerge("text-yellow-300 text-3xl", danger && "text-red-500")}>{round}</p>
       </div>
 
       <div className="flex flex-col items-center w-[500px]">
         <div className="flex mb-1 w-full">{icons}</div>
 
-        <div className="mb-4 h-6 w-full bg-yellow-300 font-bold leading-6 text-black text-center text-xl uppercase">
+        <div
+          className={twMerge(
+            "mb-4 h-7 w-full bg-yellow-300 font-bold text-black text-center text-xl uppercase",
+            danger && "bg-red-500",
+          )}
+        >
           {stratagems[sequenceIdx].name}
         </div>
 
@@ -87,12 +99,16 @@ export function Round({
           onFailure={onInputFailure}
         />
 
-        <ProgressBar className="mt-4" progress={asPercentage(end - now, roundLength)} />
+        <ProgressBar
+          className="mt-4"
+          danger={danger}
+          progress={asPercentage(end - now, roundLength)}
+        />
       </div>
 
       <div className="w-[100px] font-bold text-right">
         <p>&nbsp;</p>
-        <p className="text-yellow-300 text-3xl">{score}</p>
+        <p className={twMerge("text-yellow-300 text-3xl", danger && "text-red-500")}>{score}</p>
         <p>Score</p>
       </div>
     </div>

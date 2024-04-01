@@ -7,7 +7,7 @@ export default {
         sans: ["Titillium Web", "sans-serif"],
       },
       animation: {
-        shake: "shake 0.5s cubic-bezier(.36,.07,.19,.97) both",
+        shake: "shake 0.2s cubic-bezier(.36,.07,.19,.97) both",
       },
       keyframes: {
         shake: {

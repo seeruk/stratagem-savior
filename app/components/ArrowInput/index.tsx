@@ -56,7 +56,7 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
     }
     onFailure && onFailure()
     setShouldWait(true)
-    sleep(500).then(() => {
+    sleep(200).then(() => {
       resetState()
     })
   }, [failed, resetState, onFailure, setShouldWait])
@@ -81,7 +81,7 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
         {sequence.map((direction, i) => (
           <span key={i} className={`inline-block icon-arrow-${direction}`} />
         ))}
-        <div className={twMerge("absolute top-0 left-0 text-yellow-300", failed && "text-red-600")}>
+        <div className={twMerge("absolute top-0 left-0 text-yellow-300", failed && "text-red-500")}>
           {gameState.map((direction, i) => (
             <span key={i} className={`inline-block icon-arrow-${direction}`} />
           ))}
