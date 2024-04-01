@@ -4,7 +4,6 @@ import { ArrowInput } from "~/components/ArrowInput"
 import { ProgressBar } from "~/components/ProgressBar"
 import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"
-import { seq } from "yaml/dist/schema/common/seq"
 
 export type RoundProps = {
   round: number
