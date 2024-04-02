@@ -6,7 +6,7 @@ import { Menu } from "~/scenes/Menu"
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Subterfuge Savior" },
+    { title: "Stratagem Savior" },
     {
       name: "description",
       content: "A shameless Stratagem Hero clone, with some fun extra modes!",

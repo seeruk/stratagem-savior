@@ -39,7 +39,7 @@ export function Menu({ onStart }: MenuProps) {
 
   return (
     <div className="flex flex-col items-center">
-      <Heading>Subterfuge Savior</Heading>
+      <Heading>Stratagem Savior</Heading>
       <Message className="mb-1 font-bold">Press any Stratagem Input to Start!</Message>
       <div className="text-xs text-gray-500">(WASD or arrow keys)</div>
 
