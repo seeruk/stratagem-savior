@@ -5,6 +5,7 @@ import { ProgressBar } from "~/components/ProgressBar"
 import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"
 import { twMerge } from "tailwind-merge"
+import { useLocalStorage } from "@uidotdev/usehooks"
 
 export type RoundProps = {
   round: number
@@ -30,6 +31,7 @@ export function Round({
   const [now, setNow] = useState(Date.now())
   const [end, setEnd] = useState(Date.now() + roundLength)
   const [sequenceIdx, setSequenceIdx] = useState(0)
+  const [highScore] = useLocalStorage("ssgHighScoreV1", 0)
 
   const timer = end - now
   const danger = timer < 2000
@@ -81,7 +83,7 @@ export function Round({
   return (
     <div className="flex">
       <div className="w-[100px] font-bold">
-        <p>Round</p>
+        <p className="text-xl">Round</p>
         <p className={twMerge("text-yellow-300 text-3xl", danger && "text-red-500")}>{round}</p>
       </div>
 
@@ -112,8 +114,9 @@ export function Round({
 
       <div className="w-[100px] font-bold text-right">
         <p>&nbsp;</p>
-        <p className={twMerge("text-yellow-300 text-3xl", danger && "text-red-500")}>{score}</p>
-        <p>Score</p>
+        <p className={twMerge("text-yellow-300 text-4xl", danger && "text-red-500")}>{score}</p>
+        <p className="text-xl">Score</p>
+        <p className="text-xs text-gray-500">Highest: {highScore}</p>
       </div>
     </div>
   )
