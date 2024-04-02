@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { twMerge } from "tailwind-merge"
+import { useAudioPlayer } from "react-use-audio-player"
 
 import { Direction } from "~/types"
 import { arraysEqual, keyToDirection, sleep } from "~/utils"
@@ -14,6 +15,8 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
   const [gameState, setGameState] = useState([] as Direction[])
   const [shouldWait, setShouldWait] = useState(false)
   const [failed, setFailed] = useState(false)
+
+  const { load } = useAudioPlayer()
 
   const resetState = useCallback(() => {
     setFailed(false)
@@ -31,6 +34,10 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
       if (!direction) {
         return
       }
+
+      load("/sounds/key-press.wav", {
+        autoplay: true,
+      })
 
       setGameState((prev) => {
         const expected = sequence[prev.length]
