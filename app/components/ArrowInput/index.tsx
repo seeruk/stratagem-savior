@@ -5,6 +5,8 @@ import { useAudioPlayer } from "react-use-audio-player"
 import { Direction } from "~/types"
 import { arraysEqual, keyToDirection, sleep } from "~/utils"
 
+import keyPress from "~/sounds/key-press.wav"
+
 export type ArrowInputProps = {
   sequence: Direction[]
   onSuccess?: () => void
@@ -35,7 +37,7 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
         return
       }
 
-      load("/sounds/key-press.wav", {
+      load(keyPress, {
         autoplay: true,
       })
 
