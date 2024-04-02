@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
-import { twMerge } from "tailwind-merge"
 import { useAudioPlayer } from "react-use-audio-player"
+import { twMerge } from "tailwind-merge"
 
 import { Direction } from "~/types"
 import { arraysEqual, keyToDirection, sleep } from "~/utils"

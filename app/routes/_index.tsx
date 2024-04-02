@@ -1,7 +1,8 @@
 import { useState } from "react"
+import { ClientOnly } from "remix-utils/client-only"
 import type { MetaFunction } from "@remix-run/cloudflare"
 
-import { Game } from "~/scenes/Game"
+import { Game } from "~/scenes/Game.client"
 import { Menu } from "~/scenes/Menu"
 
 export const meta: MetaFunction = () => {
@@ -20,7 +21,7 @@ export default function Index() {
   return (
     <div className="flex h-screen w-screen justify-center items-center">
       {!playing && <Menu onStart={() => setPlaying(true)} />}
-      {playing && <Game onReset={() => setPlaying(false)} />}
+      {playing && <ClientOnly>{() => <Game onReset={() => setPlaying(false)} />}</ClientOnly>}
     </div>
   )
 }
