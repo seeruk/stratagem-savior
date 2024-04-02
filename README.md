@@ -1,48 +1,14 @@
-# Welcome to Remix + Vite!
+# Stratagem Savior 
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/future/vite) for details on supported features.
+A shameless Stratagem Hero clone, with some fun extra modes! (Coming soon anyway)
 
-## Typegen
+## Features
 
-Generate types for your Cloudflare bindings in `wrangler.toml`:
+* Local high score
+* Rounds that become progressively more impossible
+* Absolutely zero bugs
 
-```sh
-npm run typegen
-```
+## Acknowledgements
 
-You will need to rerun typegen whenever you make changes to `wrangler.toml`.
-
-## Development
-
-Run the Vite dev server:
-
-```sh
-npm run dev
-```
-
-To run Wrangler:
-
-```sh
-npm run build
-npm run start
-```
-
-## Deployment
-
-> [!WARNING]  
-> Cloudflare does _not_ use `wrangler.toml` to configure deployment bindings.
-> You **MUST** [configure deployment bindings manually in the Cloudflare dashboard][bindings].
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then, deploy your app to Cloudflare Pages:
-
-```sh
-npm run deploy
-```
-
-[bindings]: https://developers.cloudflare.com/pages/functions/bindings/
+* Special thanks to nvigneux for the SVG Stratagem sprites
+* Arrowhead Games for Helldivers 2 and the original Stratagem Hero
