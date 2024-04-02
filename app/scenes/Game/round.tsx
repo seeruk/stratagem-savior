@@ -37,7 +37,10 @@ export function Round({
   // This callback needs to remain quite stable, otherwise on each change
   // it'll get called multiple times by the ArrowInput component.
   const onInputSuccessCb = useCallback(() => {
-    const newEnd = end + 1000
+    let newEnd = end + 1000
+    if (newEnd - Date.now() > roundLength) {
+      newEnd = Date.now() + roundLength
+    }
     onInputSuccess()
     if (sequenceIdx === stratagems.length - 1) {
       onRoundSuccess(newEnd - Date.now())
@@ -45,7 +48,7 @@ export function Round({
     }
     setSequenceIdx((idx) => idx + 1)
     setEnd(newEnd)
-  }, [end, onInputSuccess, onRoundSuccess, sequenceIdx, stratagems.length])
+  }, [end, onInputSuccess, onRoundSuccess, roundLength, sequenceIdx, stratagems.length])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -61,14 +64,14 @@ export function Round({
     return () => clearInterval(intervalId)
   }, [end, roundLength, onRoundFailure])
 
-  const icons = stratagems.slice(sequenceIdx, sequenceIdx + 5).map((stratagem, i) => {
+  const icons = stratagems.slice(sequenceIdx, sequenceIdx + 6).map((stratagem, i) => {
     const Icon = stratagem.icon
     return (
       <Icon
         key={i}
         className={twMerge(
-          "w-[95px] h-[95px] p-4",
-          i === 0 && "border-yellow-300 border-[2px] w-[120px] h-[120px] p-2",
+          "w-[78px] h-[78px] p-4",
+          i === 0 && "border-yellow-300 border-[2px] w-[110px] h-[110px] p-2",
           danger && "border-red-500",
         )}
       />

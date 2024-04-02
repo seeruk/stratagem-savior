@@ -44,11 +44,6 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
     [sequence, shouldWait, setFailed, setGameState],
   )
 
-  // Reset state on sequence change
-  useEffect(() => {
-    resetState()
-  }, [resetState, sequence])
-
   // Reset game state on failure, informing player of ineptitude
   useEffect(() => {
     if (!failed) {
@@ -71,9 +66,12 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
   useEffect(() => {
     if (sequence.length > 0 && arraysEqual(gameState, sequence)) {
       setShouldWait(true)
-      sleep(150).then(() => onSuccess && onSuccess())
+      sleep(80).then(() => {
+        resetState()
+        onSuccess && onSuccess()
+      })
     }
-  }, [gameState, sequence, onSuccess, setShouldWait])
+  }, [gameState, sequence, onSuccess, resetState, setShouldWait])
 
   return (
     <div>

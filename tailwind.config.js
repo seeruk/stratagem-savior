@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Titillium Web", "sans-serif"],
+        sans: ["IBM Plex Sans", "sans-serif"],
       },
       animation: {
         shake: "shake 0.2s cubic-bezier(.36,.07,.19,.97) both",

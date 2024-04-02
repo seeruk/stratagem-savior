@@ -127,6 +127,7 @@ export function Game({ onReset }: GameProps) {
 }
 
 const generateRoundStratagems = (round: number) => {
+  // TODO: Specific rounds have specific names and stratagems included?
   return Array.from(
     { length: 5 + round },
     () => stratagems[randomIntBetween(0, stratagems.length - 1)],
