@@ -1,19 +1,9 @@
-import {
-  cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
-  vitePlugin as remix,
-} from "@remix-run/dev"
-
 import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react-swc"
 import svgr from "vite-plugin-svgr"
 import tsconfigPaths from "vite-tsconfig-paths"
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    remixCloudflareDevProxy(),
-    remix({
-      ignoredRouteFiles: ["**/*.module.css"],
-    }),
-    svgr(),
-    tsconfigPaths(),
-  ],
+  plugins: [react(), svgr(), tsconfigPaths()],
 })

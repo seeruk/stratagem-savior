@@ -1,20 +1,9 @@
 import { useState } from "react"
-import type { MetaFunction } from "@remix-run/cloudflare"
 
-import { Game } from "~/scenes/Game"
 import { Menu } from "~/scenes/Menu"
+import { Game } from "~/scenes/Game"
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Stratagem Savior" },
-    {
-      name: "description",
-      content: "A shameless Stratagem Hero clone, with some fun extra modes!",
-    },
-  ]
-}
-
-export default function Index() {
+export function App() {
   const [playing, setPlaying] = useState(false)
 
   return (

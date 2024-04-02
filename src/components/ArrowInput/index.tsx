@@ -1,8 +1,12 @@
 import { useCallback, useEffect, useState } from "react"
 import { twMerge } from "tailwind-merge"
 
+import { Howl } from "howler"
+
 import { Direction } from "~/types"
 import { arraysEqual, keyToDirection, sleep } from "~/utils"
+
+import keyPress from "~/sounds/key-press.wav"
 
 export type ArrowInputProps = {
   sequence: Direction[]
@@ -31,6 +35,12 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
       if (!direction) {
         return
       }
+
+      const sound = new Howl({
+        src: [keyPress],
+      })
+
+      sound.play()
 
       setGameState((prev) => {
         const expected = sequence[prev.length]

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react"
+import { useLocalStorage } from "@uidotdev/usehooks"
+import { twMerge } from "tailwind-merge"
 
-import { ArrowInput } from "app/components/ArrowInput"
+import { ArrowInput } from "~/components/ArrowInput"
 import { ProgressBar } from "~/components/ProgressBar"
 import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"
-import { twMerge } from "tailwind-merge"
-import { useLocalStorage } from "@uidotdev/usehooks"
 
 export type RoundProps = {
   round: number
