@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 
-import { ArrowInput } from "~/components/ArrowInput"
+import { ArrowInput } from "app/components/ArrowInput"
 import { ProgressBar } from "~/components/ProgressBar"
 import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"

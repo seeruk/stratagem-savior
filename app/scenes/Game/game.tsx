@@ -1,11 +1,11 @@
 import { asPercentage, randomIntBetween } from "~/utils"
-import { Round } from "~/scenes/Game.client/round"
+import { Round } from "~/scenes/Game/round"
 import { useCallback, useEffect, useState } from "react"
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
-import { GameOver } from "~/scenes/Game.client/game-over"
+import { GameOver } from "~/scenes/Game/game-over"
 import { Stratagem, stratagems } from "~/stratagems"
-import { RoundEnd } from "~/scenes/Game.client/round-end"
+import { RoundEnd } from "~/scenes/Game/round-end"
 
 // TODO: Configurable and passed in!
 const scoreInitialRound = 75

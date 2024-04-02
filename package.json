@@ -19,7 +19,6 @@
   "dependencies": {
     "@remix-run/cloudflare": "^2.8.1",
     "@remix-run/cloudflare-pages": "^2.8.1",
-    "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
     "@uidotdev/usehooks": "^2.4.1",
     "clsx": "^2.1.0",
@@ -27,7 +26,6 @@
     "miniflare": "^3.20231030.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-use-audio-player": "^2.2.0",
     "remix": "^2.8.1",
     "remix-utils": "^7.5.0",
     "tailwind-merge": "^2.2.2"
