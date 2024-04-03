@@ -15,9 +15,11 @@ export function GameOver({ score }: GameOverProps) {
   if (score < 1000) {
     message = "Disappointing Service"
   } else if (score < 1500) {
-    message = "Underwhelming Performance"
+    message = "Unremarkable Performance"
   } else if (score < 2000) {
     message = "Honorable Duty"
+  } else if (score < 2500) {
+    message = "Superior Valour"
   }
 
   useEffect(() => {

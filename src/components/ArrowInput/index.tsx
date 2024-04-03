@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from "react"
 import { twMerge } from "tailwind-merge"
 
-import { Howl } from "howler"
-
 import { Direction } from "~/types"
 import { arraysEqual, keyToDirection, sleep } from "~/utils"
 
-import keyPress from "~/sounds/key-press.wav"
+import { keyFailSound, keyPressSound, sequenceSuccessSound } from "~/sounds"
 
 export type ArrowInputProps = {
   sequence: Direction[]
@@ -36,22 +34,19 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
         return
       }
 
-      const sound = new Howl({
-        src: [keyPress],
-      })
-
-      sound.play()
 
       setGameState((prev) => {
         const expected = sequence[prev.length]
         if (direction === expected) {
+          keyPressSound.play()
           return [...prev, direction]
         }
+        keyFailSound.play()
         setFailed(true)
         return [...prev]
       })
     },
-    [sequence, shouldWait, setFailed, setGameState],
+    [shouldWait, sequence],
   )
 
   // Reset game state on failure, informing player of ineptitude
@@ -78,6 +73,7 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
       setShouldWait(true)
       sleep(80).then(() => {
         resetState()
+        sequenceSuccessSound.play()
         onSuccess && onSuccess()
       })
     }
