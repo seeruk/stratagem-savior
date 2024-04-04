@@ -6,6 +6,7 @@ import { ArrowInput } from "~/components/ArrowInput"
 import { ProgressBar } from "~/components/ProgressBar"
 import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"
+import { bgmSound } from "~/sounds"
 
 export type RoundProps = {
   round: number
@@ -51,6 +52,12 @@ export function Round({
     setSequenceIdx((idx) => idx + 1)
     setEnd(newEnd)
   }, [end, onInputSuccess, onRoundSuccess, roundLength, sequenceIdx, stratagems.length])
+
+  // BGM
+  useEffect(() => {
+    bgmSound.play()
+    return () => { bgmSound.stop() }
+  }, [])
 
   useEffect(() => {
     const intervalId = setInterval(() => {

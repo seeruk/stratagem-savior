@@ -3,6 +3,7 @@ import { useCallback, useEffect } from "react"
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { keyToDirection } from "~/utils"
+import { gameStartSound } from "~/sounds"
 
 export type MenuProps = {
   onStart: () => void
@@ -22,6 +23,7 @@ export function Menu({ onStart }: MenuProps) {
   // Register keydown event listener
   useEffect(() => {
     document.addEventListener("keydown", onKeyDown, false)
+    gameStartSound.play()
     return () => document.removeEventListener("keydown", onKeyDown, false)
   }, [onKeyDown])
 
