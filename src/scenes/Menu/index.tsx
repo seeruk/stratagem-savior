@@ -14,6 +14,7 @@ export function Menu({ onStart }: MenuProps) {
     (evt: KeyboardEvent) => {
       const direction = keyToDirection(evt.key)
       if (direction) {
+        gameStartSound.play()
         onStart()
       }
     },
@@ -23,7 +24,6 @@ export function Menu({ onStart }: MenuProps) {
   // Register keydown event listener
   useEffect(() => {
     document.addEventListener("keydown", onKeyDown, false)
-    gameStartSound.play()
     return () => document.removeEventListener("keydown", onKeyDown, false)
   }, [onKeyDown])
 
