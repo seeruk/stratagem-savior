@@ -25,7 +25,7 @@ export const gameOverSound = new Howl({
 
 export const gameStartSound = new Howl({
   src: [gameStart],
-  volume: 0.1,
+  volume: 0.3,
   autoplay: false,
 })
 
