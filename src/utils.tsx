@@ -1,6 +1,5 @@
+import { Stratagem, stratagems } from "~/stratagems"
 import { Direction, Maybe } from "~/types"
-import React, { PropsWithChildren } from "react"
-import { twMerge } from "tailwind-merge"
 
 export const arraysEqual = <T,>(a: T[], b: T[]) =>
   a.length === b.length && a.every((element, index) => element === b[index])
@@ -29,22 +28,74 @@ export const keyToDirection = (key: string): Maybe<Direction> => {
 export const randomIntBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min)
 
+export const randomInTriangularDistribution = (min: number, max: number, peak: number) => {
+  const init = Math.random()
+
+  if (init < (peak - min) / (max - min)) {
+    return min + Math.sqrt(init * (max - min) * (peak - min))
+  }
+
+  return max - Math.sqrt((1 - init) * (max - min) * (max - peak))
+}
+
+export const randomNumbersToSumTarget = (target: number, min: number, max: number): number[] => {
+  const numbers: number[] = []
+  let currentSum: number = 0
+
+  while (currentSum < target) {
+    const num: number = Math.floor(
+      randomInTriangularDistribution(min, max + 0.9, (max - min) / 3 + min),
+    )
+
+    if (currentSum + num > target) {
+      // If we're go over the target, try again.
+      continue
+    }
+
+    const remaining = target - (currentSum + num)
+
+    if (remaining !== 0 && remaining < min) {
+      // It wouldn't be possible to hit the target in this scenario, we'd go over on the next loop,
+      // so don't use this number. e.g. target = 70, currentSum = 61, min = 3, max = 9, and we just
+      // got 7; that would put us at 68, and no number could get us to 70.
+      continue
+    }
+
+    numbers.push(num)
+    currentSum += num
+  }
+
+  return numbers
+}
+
 export const randomSequence = (length: number): Direction[] => {
   const directions: Direction[] = ["up", "down", "left", "right"]
   return Array.from({ length }, () => directions[Math.floor(Math.random() * directions.length)])
 }
 
-export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+export const randomStratagemWithLength = (length: number): Stratagem => {
+  const selected = stratagems.filter((stratagem) => stratagem.sequence.length === length)
+  if (!selected) {
+    throw new Error(`No stratagem found with length ${length}`)
+  }
 
-export const styled = (Element: keyof React.JSX.IntrinsicElements, className: string) => {
-  const result = ({ children, ...props }: PropsWithChildren<Element>) => (
-    // @ts-expect-error: Can't figure out yet how to get the exact prop type.
-    <Element {...props} className={twMerge(className, props.className)}>
-      {children}
-    </Element>
+  return selected[randomIntBetween(0, selected.length - 1)]
+}
+
+export const randomStratagemsWithTotalLength = (length: number): Stratagem[] => {
+  const [min, max] = stratagems.reduce(
+    (agg, stratagem) => {
+      const [currentMin, currentMax] = agg
+      const length = stratagem.sequence.length
+
+      return [currentMin < length ? currentMin : length, currentMax > length ? currentMax : length]
+    },
+    [Number.MAX_SAFE_INTEGER, 0],
   )
 
-  result.displayName = `Styled(${Element})`
+  const lengths = randomNumbersToSumTarget(length, min, max) // Bounded by min and max stratagem lengths
 
-  return result
+  return lengths.map(randomStratagemWithLength)
 }
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

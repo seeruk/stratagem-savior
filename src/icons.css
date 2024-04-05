@@ -1,11 +1,12 @@
 @font-face {
-  font-family: 'ssg-icons';
-  src: url('/font/icons.eot?4644671');
-  src: url('/font/icons.eot?4644671#iefix') format('embedded-opentype'),
-       url('/font/icons.woff2?4644671') format('woff2'),
-       url('/font/icons.woff?4644671') format('woff'),
-       url('/font/icons.ttf?4644671') format('truetype'),
-       url('/font/icons.svg?4644671#fontello') format('svg');
+  font-family: "ssg-icons";
+  src: url("/font/icons.eot?4644671");
+  src:
+    url("/font/icons.eot?4644671#iefix") format("embedded-opentype"),
+    url("/font/icons.woff2?4644671") format("woff2"),
+    url("/font/icons.woff?4644671") format("woff"),
+    url("/font/icons.ttf?4644671") format("truetype"),
+    url("/font/icons.svg?4644671#fontello") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -19,7 +20,8 @@
   }
 }
 */
-[class^="icon-"]:before, [class*=" icon-"]:before {
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
   font-family: "ssg-icons";
   font-style: normal;
   font-weight: normal;
@@ -46,7 +48,15 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-arrow-down:before { content: '\e800'; }
-.icon-arrow-left:before { content: '\e801'; }
-.icon-arrow-right:before { content: '\e802'; }
-.icon-arrow-up:before { content: '\e803'; }
+.icon-arrow-down:before {
+  content: "\e800";
+}
+.icon-arrow-left:before {
+  content: "\e801";
+}
+.icon-arrow-right:before {
+  content: "\e802";
+}
+.icon-arrow-up:before {
+  content: "\e803";
+}

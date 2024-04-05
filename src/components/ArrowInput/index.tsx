@@ -34,7 +34,6 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
         return
       }
 
-
       setGameState((prev) => {
         const expected = sequence[prev.length]
         if (direction === expected) {

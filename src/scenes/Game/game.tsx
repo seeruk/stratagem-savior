@@ -1,19 +1,22 @@
-import { asPercentage, randomIntBetween } from "~/utils"
-import { Round } from "~/scenes/Game/round"
 import { useCallback, useEffect, useState } from "react"
+
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { GameOver } from "~/scenes/Game/game-over"
-import { Stratagem, stratagems } from "~/stratagems"
+import { Round } from "~/scenes/Game/round"
 import { RoundEnd } from "~/scenes/Game/round-end"
 import { gameOverSound, roundEnd1Sound, roundEnd2Sound, roundEnd3Sound } from "~/sounds"
+import { Stratagem } from "~/stratagems"
+import { asPercentage, randomStratagemsWithTotalLength } from "~/utils"
 
 // TODO: Configurable and passed in!
+const roundInitialActions = 30
+const roundActionsIncrement = 5
+const roundLength = 10000
 const scoreInitialRound = 75
-const scoreInputSuccess = 25
+const scoreInputSuccess = 5
 const scorePerfectRound = 100
 const scoreRoundIncrement = 25
-const roundLength = 10000
 
 enum Phase {
   RoundIntro,
@@ -36,8 +39,8 @@ export function Game({ onReset }: GameProps) {
   const [phase, setPhase] = useState(Phase.RoundIntro)
   const [stratagems, setStratagems] = useState<Stratagem[]>([])
 
-  const onInputSuccess = () => {
-    setScore((score) => score + scoreInputSuccess)
+  const onInputSuccess = (sequenceIdx: number) => {
+    setScore((score) => score + stratagems[sequenceIdx].sequence.length * scoreInputSuccess)
   }
 
   const onInputFailure = () => {
@@ -133,8 +136,5 @@ export function Game({ onReset }: GameProps) {
 
 const generateRoundStratagems = (round: number) => {
   // TODO: Specific rounds have specific names and stratagems included?
-  return Array.from(
-    { length: 5 + round },
-    () => stratagems[randomIntBetween(0, stratagems.length - 1)],
-  )
+  return randomStratagemsWithTotalLength(roundInitialActions + roundActionsIncrement * (round - 1))
 }

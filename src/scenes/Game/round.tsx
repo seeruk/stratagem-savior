@@ -8,12 +8,16 @@ import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"
 import { bgmSound } from "~/sounds"
 
+const timerIncrementMax = 1000
+const timerIncrementBase = 500 // Calculated from my personal average response time...
+const timerIncrementFactor = (timerIncrementMax - timerIncrementBase) / 9
+
 export type RoundProps = {
   round: number
   roundLength: number
   score: number
   stratagems: Stratagem[]
-  onInputSuccess: () => void
+  onInputSuccess: (sequenceIdx: number) => void
   onInputFailure: () => void
   onRoundSuccess: (timer: number) => void
   onRoundFailure: () => void
@@ -32,7 +36,7 @@ export function Round({
   const [now, setNow] = useState(Date.now())
   const [end, setEnd] = useState(Date.now() + roundLength)
   const [sequenceIdx, setSequenceIdx] = useState(0)
-  const [highScore] = useLocalStorage("ssgHighScoreV1", 0)
+  const [highScore] = useLocalStorage("ssgHighScoreV2", 0)
 
   const timer = end - now
   const danger = timer < 2000
@@ -40,18 +44,19 @@ export function Round({
   // This callback needs to remain quite stable, otherwise on each change
   // it'll get called multiple times by the ArrowInput component.
   const onInputSuccessCb = useCallback(() => {
-    let newEnd = end + 1000
+    const stratagem = stratagems[sequenceIdx]
+    let newEnd = end + timerIncrementBase + timerIncrementFactor * stratagem.sequence.length
     if (newEnd - Date.now() > roundLength) {
       newEnd = Date.now() + roundLength
     }
-    onInputSuccess()
+    onInputSuccess(sequenceIdx)
     if (sequenceIdx === stratagems.length - 1) {
       onRoundSuccess(newEnd - Date.now())
       return
     }
     setSequenceIdx((idx) => idx + 1)
     setEnd(newEnd)
-  }, [end, onInputSuccess, onRoundSuccess, roundLength, sequenceIdx, stratagems.length])
+  }, [end, onInputSuccess, onRoundSuccess, roundLength, sequenceIdx, stratagems])
 
   // BGM
   useEffect(() => {
