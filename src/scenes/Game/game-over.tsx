@@ -9,7 +9,7 @@ export type GameOverProps = {
 }
 
 export function GameOver({ score }: GameOverProps) {
-  const [highScore, setHighScore] = useLocalStorage("ssgHighScoreV1", 0)
+  const [highScore, setHighScore] = useLocalStorage("ssgHighScoreV2", 0)
 
   let message = "Outstanding Patriotism"
   if (score < 1000) {
