@@ -85,7 +85,7 @@ export function Game({ onReset }: GameProps) {
     if (phase === Phase.RoundEnd) {
       timeoutId = setTimeout(() => {
         setPhase(Phase.RoundIntro)
-      }, 3000)
+      }, 4000)
     }
 
     if (phase === Phase.GameOver) {
