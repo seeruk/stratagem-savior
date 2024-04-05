@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge"
 
 import { ArrowInput } from "~/components/ArrowInput"
 import { ProgressBar } from "~/components/ProgressBar"
+import { highScoreKey } from "~/consts"
 import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"
 import { bgmSound } from "~/sounds"
@@ -36,7 +37,7 @@ export function Round({
   const [now, setNow] = useState(Date.now())
   const [end, setEnd] = useState(Date.now() + roundLength)
   const [sequenceIdx, setSequenceIdx] = useState(0)
-  const [highScore] = useLocalStorage("ssgHighScoreV2", 0)
+  const [highScore] = useLocalStorage(highScoreKey, 0)
 
   const timer = end - now
   const danger = timer < 2000
@@ -61,7 +62,9 @@ export function Round({
   // BGM
   useEffect(() => {
     bgmSound.play()
-    return () => { bgmSound.stop() }
+    return () => {
+      bgmSound.stop()
+    }
   }, [])
 
   useEffect(() => {
