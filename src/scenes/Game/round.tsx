@@ -8,12 +8,14 @@ import { highScoreKey } from "~/consts"
 import { Stratagem } from "~/stratagems"
 import { asPercentage } from "~/utils"
 import { bgmSound } from "~/sounds"
+import { GameMode } from "~/types"
 
 const timerIncrementMax = 1000
 const timerIncrementBase = 500 // Calculated from my personal average response time...
 const timerIncrementFactor = (timerIncrementMax - timerIncrementBase) / 9
 
 export type RoundProps = {
+  mode: GameMode
   round: number
   roundLength: number
   score: number
@@ -25,6 +27,7 @@ export type RoundProps = {
 }
 
 export function Round({
+  mode,
   round,
   roundLength,
   score,
@@ -37,7 +40,7 @@ export function Round({
   const [now, setNow] = useState(Date.now())
   const [end, setEnd] = useState(Date.now() + roundLength)
   const [sequenceIdx, setSequenceIdx] = useState(0)
-  const [highScore] = useLocalStorage(highScoreKey, 0)
+  const [highScore] = useLocalStorage(`${highScoreKey}-${mode}`, 0)
 
   const timer = end - now
   const danger = timer < 2000
@@ -115,6 +118,7 @@ export function Round({
         </div>
 
         <ArrowInput
+          blind={mode === GameMode.Blind}
           sequence={stratagems[sequenceIdx].sequence}
           onSuccess={onInputSuccessCb}
           onFailure={onInputFailure}

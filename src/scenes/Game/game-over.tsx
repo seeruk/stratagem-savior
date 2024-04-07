@@ -4,13 +4,15 @@ import { useLocalStorage } from "@uidotdev/usehooks"
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { highScoreKey } from "~/consts"
+import { GameMode } from "~/types"
 
 export type GameOverProps = {
+  mode: GameMode
   score: number
 }
 
-export function GameOver({ score }: GameOverProps) {
-  const [highScore, setHighScore] = useLocalStorage(highScoreKey, 0)
+export function GameOver({ mode, score }: GameOverProps) {
+  const [highScore, setHighScore] = useLocalStorage(`${highScoreKey}-${mode}`, 0)
 
   let message = "Outstanding Patriotism"
   if (score < 1000) {

@@ -1,4 +1,4 @@
-import { Stratagem, stratagems } from "~/stratagems"
+import { randomStratagem, Stratagem, stratagems } from "~/stratagems"
 import { Direction, Maybe } from "~/types"
 
 export const arraysEqual = <T,>(a: T[], b: T[]) =>
@@ -80,6 +80,28 @@ export const randomStratagemWithLength = (length: number): Stratagem => {
   }
 
   return selected[randomIntBetween(0, selected.length - 1)]
+}
+
+export const randomRandomStratagemsWithTotalLength = (length: number): Stratagem[] => {
+  const [min, max] = stratagems.reduce(
+    (agg, stratagem) => {
+      const [currentMin, currentMax] = agg
+      const length = stratagem.sequence.length
+
+      return [currentMin < length ? currentMin : length, currentMax > length ? currentMax : length]
+    },
+    [Number.MAX_SAFE_INTEGER, 0],
+  )
+
+  const lengths = randomNumbersToSumTarget(length, min, max) // Bounded by min and max stratagem lengths
+
+  return lengths.map((length) => {
+    return {
+      ...randomStratagem,
+      name: `R-${length} Random`,
+      sequence: randomSequence(length),
+    }
+  })
 }
 
 export const randomStratagemsWithTotalLength = (length: number): Stratagem[] => {

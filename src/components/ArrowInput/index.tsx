@@ -7,12 +7,13 @@ import { arraysEqual, keyToDirection, sleep } from "~/utils"
 import { keyFailSound, keyPressSound, sequenceSuccessSound } from "~/sounds"
 
 export type ArrowInputProps = {
+  blind?: boolean
   sequence: Direction[]
   onSuccess?: () => void
   onFailure?: () => void
 }
 
-export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) {
+export function ArrowInput({ blind, sequence, onSuccess, onFailure }: ArrowInputProps) {
   const [gameState, setGameState] = useState([] as Direction[])
   const [shouldWait, setShouldWait] = useState(false)
   const [failed, setFailed] = useState(false)
@@ -82,7 +83,10 @@ export function ArrowInput({ sequence, onSuccess, onFailure }: ArrowInputProps) 
     <div>
       <div className={twMerge("relative text-6xl text-gray-500", failed && "animate-shake")}>
         {sequence.map((direction, i) => (
-          <span key={i} className={`inline-block icon-arrow-${direction}`} />
+          <span
+            key={i}
+            className={twMerge(`inline-block icon-arrow-${direction}`, blind && "opacity-0")}
+          />
         ))}
         <div className={twMerge("absolute top-0 left-0 text-yellow-300", failed && "text-red-500")}>
           {gameState.map((direction, i) => (

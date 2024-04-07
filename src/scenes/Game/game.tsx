@@ -7,7 +7,12 @@ import { Round } from "~/scenes/Game/round"
 import { RoundEnd } from "~/scenes/Game/round-end"
 import { gameOverSound, roundEnd1Sound, roundEnd2Sound, roundEnd3Sound } from "~/sounds"
 import { Stratagem } from "~/stratagems"
-import { asPercentage, randomStratagemsWithTotalLength } from "~/utils"
+import { GameMode } from "~/types"
+import {
+  asPercentage,
+  randomRandomStratagemsWithTotalLength,
+  randomStratagemsWithTotalLength,
+} from "~/utils"
 
 // TODO: Configurable and passed in!
 const roundInitialActions = 30
@@ -26,10 +31,11 @@ enum Phase {
 }
 
 export type GameProps = {
+  mode: GameMode
   onReset: () => void
 }
 
-export function Game({ onReset }: GameProps) {
+export function Game({ mode, onReset }: GameProps) {
   const [perfectRound, setPerfectRound] = useState(false)
   const [roundBonus, setRoundBonus] = useState(0)
   const [timeBonus, setTimeBonus] = useState(0)
@@ -77,7 +83,7 @@ export function Game({ onReset }: GameProps) {
       // We reset the round here
       timeoutId = setTimeout(() => {
         setPerfectRound(true)
-        setStratagems(generateRoundStratagems(round))
+        setStratagems(generateRoundStratagems(mode, round))
         setPhase(Phase.Playing)
       }, 2000)
     }
@@ -109,6 +115,7 @@ export function Game({ onReset }: GameProps) {
 
       {phase === Phase.Playing && (
         <Round
+          mode={mode}
           round={round}
           roundLength={roundLength}
           score={score}
@@ -129,12 +136,22 @@ export function Game({ onReset }: GameProps) {
         />
       )}
 
-      {phase === Phase.GameOver && <GameOver score={score} />}
+      {phase === Phase.GameOver && <GameOver mode={mode} score={score} />}
     </>
   )
 }
 
-const generateRoundStratagems = (round: number) => {
-  // TODO: Specific rounds have specific names and stratagems included?
-  return randomStratagemsWithTotalLength(roundInitialActions + roundActionsIncrement * (round - 1))
+const generateRoundStratagems = (gameMode: GameMode, round: number) => {
+  switch (gameMode) {
+    case GameMode.Classic:
+    case GameMode.Blind:
+      // TODO: Specific rounds have specific names and stratagems included?
+      return randomStratagemsWithTotalLength(
+        roundInitialActions + roundActionsIncrement * (round - 1),
+      )
+    case GameMode.Random:
+      return randomRandomStratagemsWithTotalLength(
+        roundInitialActions + roundActionsIncrement * (round - 1),
+      )
+  }
 }

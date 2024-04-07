@@ -48,6 +48,7 @@ import PatriotExosuit from "~/icons/Patriot Exosuit.svg?react"
 import ProspectingDrill from "~/icons/Prospecting Drill.svg?react"
 import QuasarCannon from "~/icons/Quasar Cannon.svg?react"
 import Railgun from "~/icons/Railgun.svg?react"
+import Random from "~/icons/Random.svg?react"
 import RecoillesRifle from "~/icons/Recoilless Rifle.svg?react"
 import Reinforce from "~/icons/Reinforce.svg?react"
 import Resupply from "~/icons/Resupply.svg?react"
@@ -68,6 +69,13 @@ export type Stratagem = {
   icon: React.ComponentType<SVGProps<SVGSVGElement>>
   name: string
   sequence: Direction[]
+}
+
+// Details in the random stratagem are filled in later
+export const randomStratagem: Stratagem = {
+  icon: Random,
+  name: "Random",
+  sequence: [],
 }
 
 // Sequences from:
