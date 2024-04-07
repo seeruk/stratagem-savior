@@ -19,7 +19,7 @@ export function App() {
       <div className="flex h-16 justify-center items-center text-gray-500 text-sm">
         <div className="text-center">
           <p>
-            Stratagem Savior is not affiliated with Arrowhead Games or Sony Interactive
+            Stratagem Savior is not affiliated with Arrowhead Game Studios or Sony Interactive
             Entertainment
           </p>
         </div>
