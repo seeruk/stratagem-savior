@@ -13,7 +13,7 @@ export const SelectorInput = ({ label, focused, selected }: SelectorInputProps) 
   return (
     <div>
       <div className="text-center mb-1 text-yellow-300">
-        {focused && <span className="icon-arrow-up text-3xl"></span>}&nbsp;
+        {focused && <span className="icon-arrow-up text-3xl"></span>}
       </div>
       <div
         className={twMerge(
