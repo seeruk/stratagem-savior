@@ -387,7 +387,7 @@ export const stratagems: Stratagem[] = [
   {
     icon: RocketSentry,
     name: "A/MLS-4X Rocket Sentry",
-    sequence: ["down", "up", "right", "left"],
+    sequence: ["down", "up", "right", "right", "left"],
   },
   {
     icon: EMSMortarSentry,
