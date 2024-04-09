@@ -44,7 +44,7 @@ export const randomNumbersToSumTarget = (target: number, min: number, max: numbe
 
   while (currentSum < target) {
     const num: number = Math.floor(
-      randomInTriangularDistribution(min, max + 0.9, (max - min) / 3 + min),
+      randomInTriangularDistribution(min, max + 0.99999, (max - min) / 3 + min),
     )
 
     if (currentSum + num > target) {
@@ -65,7 +65,7 @@ export const randomNumbersToSumTarget = (target: number, min: number, max: numbe
     currentSum += num
   }
 
-  return numbers
+  return shuffleArray(numbers)
 }
 
 export const randomSequence = (length: number): Direction[] => {
@@ -118,6 +118,15 @@ export const randomStratagemsWithTotalLength = (length: number): Stratagem[] => 
   const lengths = randomNumbersToSumTarget(length, min, max) // Bounded by min and max stratagem lengths
 
   return lengths.map(randomStratagemWithLength)
+}
+
+export const shuffleArray = <T,>(arr: T[]) => {
+  const newArr = arr.slice()
+  for (let i = newArr.length - 1; i > 0; i--) {
+    const rand = Math.floor(Math.random() * (i + 1))
+    ;[newArr[i], newArr[rand]] = [newArr[rand], newArr[i]]
+  }
+  return newArr
 }
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
