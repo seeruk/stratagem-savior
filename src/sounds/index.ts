@@ -31,7 +31,7 @@ export const gameStartSound = new Howl({
 
 export const keyFailSound = new Howl({
   src: [keyFail],
-  volume: 0.5,
+  volume: 0.4,
   autoplay: false,
 })
 
