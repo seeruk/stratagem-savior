@@ -1,5 +1,6 @@
 name = "stratagem-savior"
 compatibility_date = "2024-03-29"
+pages_build_output_dir = "./dist"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
