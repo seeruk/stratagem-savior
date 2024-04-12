@@ -2,6 +2,7 @@ import { PropsWithChildren, useEffect, useState } from "react"
 
 import { sleep } from "~/utils"
 import { twMerge } from "tailwind-merge"
+import { scoreLineSound } from "~/sounds"
 
 export type RoundEndProps = {
   score: number
@@ -30,9 +31,19 @@ export function RoundEnd({ score, roundBonus, timeBonus, perfectBonus }: RoundEn
   const [row, setRow] = useState(0)
 
   useEffect(() => {
-    sleep(350).then(() => setRow(1))
-    sleep(950).then(() => setRow(2))
-    sleep(1450).then(() => setRow(3))
+    scoreLineSound.play()
+    sleep(500).then(() => {
+      scoreLineSound.play()
+      setRow(1)
+    })
+    sleep(1000).then(() => {
+      scoreLineSound.play()
+      setRow(2)
+    })
+    sleep(1500).then(() => {
+      scoreLineSound.play()
+      setRow(3)
+    })
   }, [setRow])
 
   return (

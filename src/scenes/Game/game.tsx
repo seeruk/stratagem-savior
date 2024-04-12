@@ -5,7 +5,7 @@ import { Message } from "~/components/Message"
 import { GameOver } from "~/scenes/Game/game-over"
 import { Round } from "~/scenes/Game/round"
 import { RoundEnd } from "~/scenes/Game/round-end"
-import { gameOverSound, roundEnd1Sound, roundEnd2Sound, roundEnd3Sound } from "~/sounds"
+import { gameOverSound } from "~/sounds"
 import { Stratagem } from "~/stratagems"
 import { GameMode } from "~/types"
 import {
@@ -55,9 +55,9 @@ export function Game({ mode, onReset }: GameProps) {
 
   const onRoundSuccess = useCallback(
     (timer: number) => {
-      const sounds = [roundEnd3Sound, roundEnd1Sound, roundEnd2Sound] // Looks wrong, isn't
-      const sound = sounds[round % sounds.length]
-      sound.play()
+      // const sounds = [roundEnd3Sound, roundEnd1Sound, roundEnd2Sound] // Looks wrong, isn't
+      // const sound = sounds[round % sounds.length]
+      // sound.play()
       const roundBonus = scoreInitialRound + scoreRoundIncrement * (round - 1)
       const timeBonus = Math.floor(asPercentage(timer, roundLength))
       const perfectBonus = perfectRound ? scorePerfectRound : 0
