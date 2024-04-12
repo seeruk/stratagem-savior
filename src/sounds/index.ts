@@ -61,7 +61,7 @@ export const roundEnd3Sound = new Howl({
 
 export const sequenceSuccessSound = new Howl({
   src: [sequenceSuccess],
-  volume: 0.5,
+  volume: 0.3,
   autoplay: false,
 })
 
