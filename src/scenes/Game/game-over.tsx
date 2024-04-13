@@ -5,6 +5,7 @@ import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { highScoreKey } from "~/consts"
 import { GameMode } from "~/types"
+import { twMerge } from "tailwind-merge"
 
 export type GameOverProps = {
   mode: GameMode
@@ -42,7 +43,9 @@ export function GameOver({ mode, score }: GameOverProps) {
           <Heading className="mb-0" level={3} size="xs">
             Final Score
           </Heading>
-          <Message className="text-3xl font-bold">{score}</Message>
+          <Message className={twMerge("text-3xl font-bold", score < 500 && "text-red-500")}>
+            {score}
+          </Message>
         </div>
 
         <div className="text-right">
@@ -53,7 +56,12 @@ export function GameOver({ mode, score }: GameOverProps) {
         </div>
       </div>
 
-      <div className="mb-6 p-6 w-full font-bold text-black text-xl text-center bg-yellow-300">
+      <div
+        className={twMerge(
+          "mb-6 p-6 w-full font-bold text-black text-xl text-center bg-yellow-300",
+          score < 500 && "bg-red-500",
+        )}
+      >
         {message}
       </div>
     </div>
