@@ -15,7 +15,9 @@ export function GameOver({ mode, score }: GameOverProps) {
   const [highScore, setHighScore] = useLocalStorage(`${highScoreKey}-${mode}`, 0)
 
   let message = "Outstanding Patriotism"
-  if (score < 1000) {
+  if (score < 500) {
+    message = "Disgraceful Conduct"
+  } else if (score < 1000) {
     message = "Disappointing Service"
   } else if (score < 1500) {
     message = "Unremarkable Performance"
