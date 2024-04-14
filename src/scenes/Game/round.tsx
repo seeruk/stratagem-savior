@@ -135,7 +135,7 @@ export function Round({
         <p>&nbsp;</p>
         <p className={twMerge("text-yellow-300 text-4xl", danger && "text-red-500")}>{score}</p>
         <p className="text-xl">Score</p>
-        <p className="text-xs text-gray-500">Highest: {highScore}</p>
+        <p className="text-xs text-neutral-500">Highest: {highScore}</p>
       </div>
     </div>
   )

@@ -19,7 +19,7 @@ const ModeLabel = ({ mode }: ModeLabelProps) => {
     <>
       {mode}
       <br />
-      <span className="text-gray-500">{highScore}</span>
+      <span className="text-neutral-500">{highScore}</span>
     </>
   )
 }
@@ -60,7 +60,7 @@ export function Menu({ onStart }: MenuProps) {
       />
 
       <Message className="mb-1">Use Stratagem Inputs to Start!</Message>
-      <div className="text-xs text-gray-500">(WASD or arrow keys)</div>
+      <div className="text-xs text-neutral-500">(WASD or arrow keys)</div>
     </div>
   )
 }

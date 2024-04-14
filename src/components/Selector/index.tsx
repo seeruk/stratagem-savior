@@ -18,14 +18,14 @@ export const SelectorInput = ({ label, focused, selected }: SelectorInputProps) 
       </div>
       <div
         className={twMerge(
-          "border-2 border-gray-200 bg-red-900 h-[6rem] w-[4rem] mb-2",
+          "border-2 border-neutral-200 bg-red-900 h-[6rem] w-[4rem] mb-2",
           focused && "border-yellow-300",
           selected && "bg-green-700 border-yellow-300",
         )}
       />
       <div
         className={twMerge(
-          "uppercase text-xs text-gray-300 text-center",
+          "uppercase text-xs text-neutral-300 text-center",
           focused && "text-yellow-300",
         )}
       >

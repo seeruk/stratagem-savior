@@ -81,7 +81,7 @@ export function ArrowInput({ blind, sequence, onSuccess, onFailure }: ArrowInput
 
   return (
     <div>
-      <div className={twMerge("relative text-6xl text-gray-500", failed && "animate-shake")}>
+      <div className={twMerge("relative text-6xl text-neutral-500", failed && "animate-shake")}>
         {sequence.map((direction, i) => (
           <span
             key={i}
