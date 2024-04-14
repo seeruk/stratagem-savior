@@ -1,38 +1,39 @@
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
+import { Footer } from "~/components/Footer"
 import { Menu } from "~/scenes/Menu"
 import { Game } from "~/scenes/Game"
 import { loadSounds } from "~/sounds"
 import { GameMode } from "~/types"
+import { Header } from "~/components/Header"
 
 export function App() {
   const [gameMode, setGameMode] = useState<GameMode>(GameMode.Classic)
   const [playing, setPlaying] = useState(false)
 
-  // Prepare assets
-  loadSounds()
+  const onStart = useCallback(
+    (gameMode: GameMode) => {
+      setGameMode(gameMode)
+      setPlaying(true)
+    },
+    [setGameMode, setPlaying],
+  )
+
+  useEffect(() => {
+    // Prepare assets
+    loadSounds()
+  }, [])
 
   return (
     <>
-      <div className="flex h-[calc(100dvh-4rem)] w-dvw justify-center items-center">
-        {!playing && (
-          <Menu
-            onStart={(gameMode: GameMode) => {
-              setGameMode(gameMode)
-              setPlaying(true)
-            }}
-          />
-        )}
+      <Header />
+
+      <div className="flex h-[calc(100dvh-8rem)] w-dvw justify-center items-center">
+        {!playing && <Menu onStart={onStart} />}
         {playing && <Game mode={gameMode} onReset={() => setPlaying(false)} />}
       </div>
-      <div className="flex h-16 justify-center items-center text-gray-500 text-sm">
-        <div className="text-center">
-          <p>
-            Stratagem Savior is not affiliated with Arrowhead Game Studios or Sony Interactive
-            Entertainment
-          </p>
-        </div>
-      </div>
+
+      <Footer />
     </>
   )
 }

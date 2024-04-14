@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
-import { keyToDirection } from "~/utils.tsx"
 import { twMerge } from "tailwind-merge"
+
+import { keyToDirection } from "~/lib/utils"
 import { keyPressSound } from "~/sounds"
 
 export type SelectorInputProps = {
@@ -17,7 +18,7 @@ export const SelectorInput = ({ label, focused, selected }: SelectorInputProps) 
       </div>
       <div
         className={twMerge(
-          "border-2 bg-red-900 h-[6rem] w-[4rem] mb-2",
+          "border-2 border-gray-200 bg-red-900 h-[6rem] w-[4rem] mb-2",
           focused && "border-yellow-300",
           selected && "bg-green-700 border-yellow-300",
         )}

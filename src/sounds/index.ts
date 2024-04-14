@@ -76,3 +76,17 @@ export const loadSounds = () => {
   roundEnd3Sound.load()
   sequenceSuccessSound.load()
 }
+
+export const setVolume = (volume: number) => {
+  volume = Math.min(1, Math.max(0, volume))
+
+  bgmSound.volume(volume)
+  gameOverSound.volume(volume)
+  gameStartSound.volume(volume)
+  keyFailSound.volume(volume)
+  keyPressSound.volume(volume)
+  roundEnd1Sound.volume(volume)
+  roundEnd2Sound.volume(volume)
+  roundEnd3Sound.volume(volume)
+  sequenceSuccessSound.volume(volume)
+}

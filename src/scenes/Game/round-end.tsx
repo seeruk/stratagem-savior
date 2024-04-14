@@ -1,7 +1,7 @@
 import { PropsWithChildren, useEffect, useState } from "react"
-
-import { sleep } from "~/utils"
 import { twMerge } from "tailwind-merge"
+
+import { sleep } from "~/lib/utils"
 
 export type RoundEndProps = {
   score: number

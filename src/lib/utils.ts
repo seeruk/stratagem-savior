@@ -1,7 +1,13 @@
-import { randomStratagem, Stratagem, stratagems } from "~/stratagems"
-import { Direction, Maybe } from "~/types"
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+import { Direction, Maybe } from "~/types.ts"
+import { randomStratagem, Stratagem, stratagems } from "~/stratagems.ts"
 
-export const arraysEqual = <T,>(a: T[], b: T[]) =>
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+export const arraysEqual = <T>(a: T[], b: T[]) =>
   a.length === b.length && a.every((element, index) => element === b[index])
 
 export const asPercentage = (value: number, total: number) => (value / total) * 100
@@ -120,7 +126,7 @@ export const randomStratagemsWithTotalLength = (length: number): Stratagem[] => 
   return lengths.map(randomStratagemWithLength)
 }
 
-export const shuffleArray = <T,>(arr: T[]) => {
+export const shuffleArray = <T>(arr: T[]) => {
   const newArr = arr.slice()
   for (let i = newArr.length - 1; i > 0; i--) {
     const rand = Math.floor(Math.random() * (i + 1))

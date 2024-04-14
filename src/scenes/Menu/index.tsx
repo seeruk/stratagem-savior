@@ -1,12 +1,12 @@
 import { useCallback } from "react"
+import { useLocalStorage } from "@uidotdev/usehooks"
 
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { Selector } from "~/components/Selector"
+import { highScoreKey } from "~/consts"
 import { gameStartSound } from "~/sounds"
 import { GameMode } from "~/types"
-import { useLocalStorage } from "@uidotdev/usehooks"
-import { highScoreKey } from "~/consts.ts"
 
 type ModeLabelProps = {
   mode: GameMode

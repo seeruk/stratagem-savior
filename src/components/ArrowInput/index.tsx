@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react"
 import { twMerge } from "tailwind-merge"
 
+import { arraysEqual, keyToDirection, sleep } from "~/lib/utils"
 import { Direction } from "~/types"
-import { arraysEqual, keyToDirection, sleep } from "~/utils"
 
 import { keyFailSound, keyPressSound, sequenceSuccessSound } from "~/sounds"
 

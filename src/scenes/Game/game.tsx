@@ -8,11 +8,12 @@ import { RoundEnd } from "~/scenes/Game/round-end"
 import { gameOverSound, roundEnd1Sound, roundEnd2Sound, roundEnd3Sound } from "~/sounds"
 import { Stratagem } from "~/stratagems"
 import { GameMode } from "~/types"
+
 import {
   asPercentage,
   randomRandomStratagemsWithTotalLength,
   randomStratagemsWithTotalLength,
-} from "~/utils"
+} from "~/lib/utils"
 
 // TODO: Configurable and passed in!
 const roundInitialActions = 30

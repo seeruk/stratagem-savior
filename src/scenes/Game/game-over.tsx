@@ -1,11 +1,11 @@
 import { useEffect } from "react"
+import { twMerge } from "tailwind-merge"
 import { useLocalStorage } from "@uidotdev/usehooks"
 
 import { Heading } from "~/components/Heading"
 import { Message } from "~/components/Message"
 import { highScoreKey } from "~/consts"
 import { GameMode } from "~/types"
-import { twMerge } from "tailwind-merge"
 
 export type GameOverProps = {
   mode: GameMode
